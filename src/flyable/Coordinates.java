@@ -11,6 +11,12 @@ public class Coordinates {
         height = p_height;
     }
 
+    public Coordinates(Coordinates coordinates) {
+        longitude = coordinates.getLongitude();
+        latitude = coordinates.getLatitude();
+        height = coordinates.getHeight();
+    }
+
     public int getLongitude() {
         return longitude;
     }

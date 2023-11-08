@@ -18,7 +18,7 @@ public class Aircraft extends Flyable {
         super.registerTower(p_tower);
         System.out.println(
             String.format(
-                "🗼 Tower says: %s#%s(%d)(x:%d, y:%d, x:%d) registered to weather tower.",
+                "🗼 Tower says: %s#%s(%d)(x:%d, y:%d, z:%d) registered to weather tower.",
                 this.getClass().getSimpleName(),
                 name,
                 id,

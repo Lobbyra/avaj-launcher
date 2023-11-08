@@ -2,9 +2,7 @@ package weather;
 import java.util.ArrayList;
 import java.util.List;
 
-import flyable.Aircraft;
 import flyable.Flyable;
-import flyable.Helicopter;
 
 public class Tower {
     private List<Flyable> observers = new ArrayList<>();
@@ -38,5 +36,9 @@ public class Tower {
         for (Flyable flyable : observers) {
             flyable.updateConditions();
         }
+    }
+
+    public Boolean isFlyableOnAir() {
+        return (observers.size() > 0);
     }
 }

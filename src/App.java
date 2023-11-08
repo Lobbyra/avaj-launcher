@@ -76,11 +76,21 @@ public class App {
             return ;
         }
         // START THE SIMULATION
-        while (roundNumber > 0) {
-            System.out.println("-------🌈 The weather is changing 🌈-------");
+        Integer maxRound = roundNumber;
+        while (roundNumber > 0 && tower.isFlyableOnAir()) {
+            System.out.println(
+                String.format(
+                    "\n-------🌈 The weather is changing (%d / %d) 🌈-------",
+                    (maxRound - roundNumber) + 1,
+                    maxRound
+                )
+            );
             tower.changeWeather();
             // Thread.sleep(1000);
             roundNumber -= 1;
+        }
+        if (tower.isFlyableOnAir() == false) {
+            System.out.println("All flyables landed! The weather is really bad.");
         }
         scenarioReader.close();
     }

@@ -15,9 +15,10 @@ public class Helicopter extends Aircraft {
         String currWeather = WeatherProvider.getInstance().getCurrentWeather(
             this.coordinates
         );
+        Coordinates coordBeforeWeather = new Coordinates(coordinates);
         switch (currWeather) {
             case "SUN":
-                msg = "😎 Zap Zap Zap";
+                msg = "😎 Zap Zap Zap (x + 10, z + 2)";
                 this.coordinates.longitude += 10;
                 this.coordinates.height += 2;
                 if (this.coordinates.height > 100) {
@@ -25,15 +26,15 @@ public class Helicopter extends Aircraft {
                 }
                 break;
             case "RAIN":
-                msg = "💧 Flop Flop Flop";
+                msg = "💧 Flop Flop Flop (x + 5)";
                 this.coordinates.longitude += 5;
                 break;
             case "FOG":
-                msg = "🌫 Schwoup Schwoup Schwoup";
+                msg = "🌫 Schwoup Schwoup Schwoup (x + 1)";
                 this.coordinates.longitude += 1;
                 break;
             case "SNOW":
-                msg = "🥶 Clack Clack Clack";
+                msg = "🥶 Clack Clack Clack (z - 12)";
                 this.coordinates.height -= 12;
                 if (this.coordinates.height <= 0) {
                     // LANDING
@@ -52,13 +53,13 @@ public class Helicopter extends Aircraft {
         }
         System.out.println(
             String.format(
-                "🚁 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
+                "🚁 %s#%s(%d)(x:%d, y:%d, z:%d): %s",
                 this.getClass().getSimpleName(),
                 this.name,
                 this.id,
-                coordinates.longitude,
-                coordinates.latitude,
-                coordinates.height,
+                coordBeforeWeather.longitude,
+                coordBeforeWeather.latitude,
+                coordBeforeWeather.height,
                 msg
             )
         );
@@ -66,7 +67,7 @@ public class Helicopter extends Aircraft {
             msg = "ploc. landing.";
             System.out.println(
                 String.format(
-                    "🚁 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
+                    "🚁 %s#%s(%d)(x:%d, y:%d, z:%d): %s",
                     this.getClass().getSimpleName(),
                     this.name,
                     this.id,

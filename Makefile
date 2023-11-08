@@ -1,5 +1,6 @@
 all	:
 	find * -name "*.java" > sources.txt
+	mkdir bin
 	javac -d bin @sources.txt
 
 run : all

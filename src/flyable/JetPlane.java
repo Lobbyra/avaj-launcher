@@ -16,9 +16,10 @@ public class JetPlane extends Aircraft {
         String currWeather = WeatherProvider.getInstance().getCurrentWeather(
             this.coordinates
         );
+        Coordinates coordBeforeWeather = new Coordinates(coordinates);
         switch (currWeather) {
             case "SUN":
-                msg = "😎 My engines getting hotter, will we fall?";
+                msg = "😎 My engines getting hotter, will we fall? (y + 10, z + 2)";
                 this.coordinates.latitude += 10;
                 this.coordinates.height += 2;
                 if (this.coordinates.height > 100) {
@@ -26,15 +27,15 @@ public class JetPlane extends Aircraft {
                 }
                 break;
             case "RAIN":
-                msg = "💧 There is more weight on my wing, will we fall?";
+                msg = "💧 There is more weight on my wing, will we fall? (y + 5)";
                 this.coordinates.latitude += 5;
                 break;
             case "FOG":
-                msg = "🌫 I can't see the ground, will we fall?";
+                msg = "🌫 I can't see the ground, will we fall? (y + 1)";
                 this.coordinates.latitude += 1;
                 break;
             case "SNOW":
-                msg = "🥶 My fuel is cold, will we fall?";
+                msg = "🥶 My fuel is cold, will we fall? (z - 7)";
                 this.coordinates.height -= 7;
                 if (this.coordinates.height <= 0) {
                     // LANDING
@@ -53,17 +54,18 @@ public class JetPlane extends Aircraft {
         }
         System.out.println(
             String.format(
-                "🛫 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
+                "🛫 %s#%s(%d)(x:%d, y:%d, z:%d): %s",
                 this.getClass().getSimpleName(),
                 this.name,
                 this.id,
-                coordinates.longitude,
-                coordinates.latitude,
-                coordinates.height,
+                coordBeforeWeather.longitude,
+                coordBeforeWeather.latitude,
+                coordBeforeWeather.height,
                 msg
             )
         );
         if (isLanding == true) {
+            msg = "ok, we didn't fall. landing.";
             System.out.println(
                 String.format(
                     "🛫 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
@@ -76,7 +78,6 @@ public class JetPlane extends Aircraft {
                     msg
                 )
             );
-            msg = "ok, we didn't fall. landing.";
         }
         if (isLanding == true) {
             weatherTower.unregister(this);

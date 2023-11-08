@@ -15,9 +15,10 @@ public class Baloon extends Aircraft {
         String currWeather = WeatherProvider.getInstance().getCurrentWeather(
             this.coordinates
         );
+        Coordinates coordBeforeWeather = new Coordinates(coordinates);
         switch (currWeather) {
             case "SUN":
-                msg = "😎 The air is getting hotter ! It's very nice for me.";
+                msg = "😎 The air is getting hotter ! It's very nice for me. (x + 2, z + 4)";
                 this.coordinates.longitude += 2;
                 this.coordinates.height += 4;
                 if (this.coordinates.height > 100) {
@@ -25,7 +26,7 @@ public class Baloon extends Aircraft {
                 }
                 break;
             case "RAIN":
-                msg = "💧 It's raining ! Prepare your K-way ";
+                msg = "💧 It's raining ! Prepare your K-way (z - 5)";
                 this.coordinates.height -= 5;
                 if (this.coordinates.height <= 0) {
                     isLanding = true;
@@ -33,7 +34,7 @@ public class Baloon extends Aircraft {
                 }
                 break;
             case "FOG":
-                msg = "🌫  Where I am? Who I am? I'm lost...";
+                msg = "🌫  Where I am? Who I am? I'm lost... (z - 3)";
                 this.coordinates.height -= 3;
                 if (this.coordinates.height <= 0) {
                     isLanding = true;
@@ -41,7 +42,7 @@ public class Baloon extends Aircraft {
                 }
                 break;
             case "SNOW":
-                msg = "🥶 It's freezing, not stonks :(";
+                msg = "🥶 It's freezing, not stonks (z - 15)";
                 this.coordinates.height -= 15;
                 if (this.coordinates.height <= 0) {
                     isLanding = true;
@@ -59,13 +60,13 @@ public class Baloon extends Aircraft {
         }
         System.out.println(
             String.format(
-                "🎈 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
+                "🎈 %s#%s(%d)(x:%d, y:%d, z:%d): %s",
                 this.getClass().getSimpleName(),
                 this.name,
                 this.id,
-                coordinates.longitude,
-                coordinates.latitude,
-                coordinates.height,
+                coordBeforeWeather.longitude,
+                coordBeforeWeather.latitude,
+                coordBeforeWeather.height,
                 msg
             )
         );
@@ -73,7 +74,7 @@ public class Baloon extends Aircraft {
             msg = "yey, we landing.";
             System.out.println(
                 String.format(
-                    "🎈 %s#%s(%d)(x:%d, y:%d, x:%d): %s",
+                    "🎈 %s#%s(%d)(x:%d, y:%d, z:%d): %s",
                     this.getClass().getSimpleName(),
                     this.name,
                     this.id,
